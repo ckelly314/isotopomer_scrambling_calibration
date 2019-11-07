@@ -37,11 +37,3 @@ Stanford University
     2) Open your output file and copy-paste the two columns back into the scrambling input
     template. The first column will be the gamma values and the second column will be the
     kappa values for each pair of samples. These should all be quite similar.
-
-#### Scrambling Equations
-
-From Frame and Casciotti (2010), Appendix B:
-\begin{equation}
-    ^{31}R = \frac{(1-\gamma)\alpha+\kappa\beta+\alpha\beta+17R(1+\gamma\alpha+(1-\kappa)\beta}{1+\gamma\alpha+(1-\kappa)\beta}
-\end{equation}
-       
