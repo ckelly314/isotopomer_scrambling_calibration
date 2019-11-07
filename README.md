@@ -1,33 +1,41 @@
-# iAzide
+# isotopomer_scrambling_calibration
 Requires MATLAB 2013 or above.
 @author: Colette Kelly,
 Stanford University
 
 ### Quick intro
-    iAzide uses azide calibration curves to solve for unknowns in the relationships
-    between measured and actual nitrite isotopes. These comprise two distinct sets of
-    equations and unknowns for the measured values of delta 18O and delta 15N.
+    Uses values of 31R, 45R and 46R and the known 15Ralpha and 15Rbeta of two reference 
+    gases to solve for  coefficients describing scrambling at the source. A pair of
+    measured reference samples provide us with two equations to solve for
+    two unknowns (gamma and kappa).
 
-### Running iAzide
-#### Setting the root path and data filename
-    Let's call the path to iAzide/ -- $AZIDEPATH 
-      (1) Open the template runscript: 
-            `$AZIDEPATH/iAzide/azide_run.m`
-            for editing and set: `azide_root='$AZIDEPATH'`;
-      (2) with the template runscript open, set 'azide_datafilename' 
-      		to the filename of the excel file in which the calibration curve data is stored
+### Running isotopomer_scrambling_calibration
+#### Setting up input file
+	1) Run two reference gases with known 15R-alpha and 15R-beta, prepared in the same format
+	as samples (i.e., some amount of N2O reference gas injected into a bottle of seawater
+	or DI water that has been pre-purged with He or N2 gas). Process and size-correct
+	these data to obtain a corrected 31/30, 45/44, and 46/44 ratio for each sample.
+	2) Open “scrambling_input_template.xlsx”. Copy and paste the size-corrected 31R, 45R,
+	46R (columns AG, AH, and AI from the isotopomer correction spreadsheet) into the
+	scrambling input template, columns C-E.
+	3) Re-organize the size corrected data into pairs of samples by copy-pasting into
+	columns H-M of the scrambling input template. The columns should be in the following
+	order: 31R, 45R, 46R for reference #1, then 31R, 45R, 46R for reference #2.
+	4) Copy-paste columns H-M in the input template into their own .csv file, with no
+	heading. Save the .csv file into the same directory as the Matlab scrambling scripts.
       
-#### Run the algorithm
-    Run the template script `$AZIDEPATH/iAzide/azide_run.m` in MATLAB
+#### Updating known 15R-alpha and 15R-beta
+    Open “automate_gk_equations.m”. Note that we specify four constants: “a”, “b”, “a2”,
+    and “b2”. These are the known 15R-alpha and 15R-beta for reference #1 and reference
+    #2. It is necessary to update these values to reflect the two reference gases
+    currently being used to calibrate scrambling.
     
-#### Customizing the algorithm equations and constants
-    regressions & constants   -- azide_initialize.m
-    equations                 -- intercept_eq_18O.m //intercept_eq_15N.m
-	looping/permutations      -- azide_loop_18O.m // azide_loop_15N.m 
-	error estimation          -- summarize_error.m
+#### Running the solver
+    1) Open “automate_gk_setinputs.m”. Change line 10 to reflect your input filename. Change
+    line 21 to reflect what you would like the output filename to be.
+    Run automate_gk_setinputs.m.
+    2) Open your output file and copy-paste the two columns back into the scrambling input
+    template. The first column will be the gamma values and the second column will be the
+    kappa values for each pair of samples. These should all be quite similar.
+
        
- #### iAzide/input_data/
-      Where data files with calibration curves are stored.
-       
- #### iAzide/output/
-      Where algorithm output is archived.

@@ -1,24 +1,27 @@
 function F = automate_gk_eqns(f,R)
 
-% automate_gk_eqns   Calculates 15Ralpha and 15Rbeta from 31R, 45R and 46R
+% automate_gk_eqns   Equations for calculation of scrambling coefficients
 %=========================================================================
 % automate_gk_eqns Version 1, Aug 28, 2017
 %          
-% USAGE:  [v,fval] = lsqnonlin(@SPnonlineq,x0,lb,ub,options,R(n,:));
-%    Please see calcSPmain.m for definitions of these variables.
+% USAGE:  [v,fval] = lsqnonlin(@automate_gk_eqns,x0,lb,ub,options,R(n,:));
+%    Please see automate_gk_solver for definitions of these variables.
 %
 % DESCRIPTION:
-%    Uses values of 31R, 45R and 46R to iteratively solve for 15Ralpha and 
-%    15R beta
+%    Uses values of 31R, 45R and 46R and known 15Ralpha and 15Rbeta as 
+%    constants in equations describing scrambling at the source. A pair of
+%    measured reference samples provide us with two equations to solve for
+%    two unknowns (gamma and kappa).
 %
-% INPUT:  R = array with dimensions n x 3 where n is the number of
-%    measurements.  The three columns are 31R, 45R and 46R from left to 
-%    right.
+% INPUT:  R = array with dimensions n x 6 where n is the number of
+%   reference pairs. The six columns are 31R, 45R and 46R for reference #1,
+%   then 31R, 45R, 46R for reference #2, from left to right.
+%   BE SURE TO UPDATE "a", "b", "a2", and "b2" to reflect the known alphas
+%   and betas of the two reference gases being used.
 %
 % OUTPUT:
 %   F = array with dimensions n x 2 where n is the number of
-%   measurements.  The two columns are 15Ralpha and 15Rbeta from left to 
-%   right.
+%   reference pairs. The two columns are gamma, kappa from left to right.
 % 
 % AUTHOR:  Colette Kelly (clkelly@stanford.edu)
 %=========================================================================
