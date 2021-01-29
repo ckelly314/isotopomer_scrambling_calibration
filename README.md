@@ -38,4 +38,4 @@ Stanford University
     template. The first column will be the gamma values and the second column will be the
     kappa values for each pair of samples. These should all be quite similar.
     
-    blah blah blah
+    blah blah
